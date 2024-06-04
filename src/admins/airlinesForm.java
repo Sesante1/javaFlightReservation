@@ -19,7 +19,7 @@ public class airlinesForm extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         airlineName = new javax.swing.JTextField();
-        airlineLocation = new javax.swing.JTextField();
+        airlineCountry = new javax.swing.JTextField();
         submitButton = new panelRoundComponents.PanelRound();
         jLabel3 = new javax.swing.JLabel();
 
@@ -46,22 +46,22 @@ public class airlinesForm extends javax.swing.JFrame {
             }
         });
 
-        airlineLocation.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        airlineLocation.setForeground(new java.awt.Color(130, 130, 130));
-        airlineLocation.setText("  Location");
-        airlineLocation.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        airlineLocation.setPreferredSize(new java.awt.Dimension(6, 30));
-        airlineLocation.addFocusListener(new java.awt.event.FocusAdapter() {
+        airlineCountry.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        airlineCountry.setForeground(new java.awt.Color(130, 130, 130));
+        airlineCountry.setText("  Location");
+        airlineCountry.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        airlineCountry.setPreferredSize(new java.awt.Dimension(6, 30));
+        airlineCountry.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                airlineLocationFocusGained(evt);
+                airlineCountryFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                airlineLocationFocusLost(evt);
+                airlineCountryFocusLost(evt);
             }
         });
-        airlineLocation.addActionListener(new java.awt.event.ActionListener() {
+        airlineCountry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                airlineLocationActionPerformed(evt);
+                airlineCountryActionPerformed(evt);
             }
         });
 
@@ -110,7 +110,7 @@ public class airlinesForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(airlineName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
-                    .addComponent(airlineLocation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE))
+                    .addComponent(airlineCountry, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -123,7 +123,7 @@ public class airlinesForm extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addComponent(airlineName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(airlineLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(airlineCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(43, Short.MAX_VALUE))
@@ -164,23 +164,23 @@ public class airlinesForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_airlineNameActionPerformed
 
-    private void airlineLocationFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_airlineLocationFocusGained
-        if (airlineLocation.getText().equals("  Location")){
-            airlineLocation.setText("");
-            airlineLocation.setForeground(new Color(153,153,153));
+    private void airlineCountryFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_airlineCountryFocusGained
+        if (airlineCountry.getText().equals("  Country")){
+            airlineCountry.setText("");
+            airlineCountry.setForeground(new Color(153,153,153));
         }
-    }//GEN-LAST:event_airlineLocationFocusGained
+    }//GEN-LAST:event_airlineCountryFocusGained
 
-    private void airlineLocationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_airlineLocationFocusLost
-        if (airlineLocation.getText().equals("")){
-            airlineLocation.setText("  Location");
-            airlineLocation.setForeground(new Color(153,153,153));
+    private void airlineCountryFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_airlineCountryFocusLost
+        if (airlineCountry.getText().equals("")){
+            airlineCountry.setText("  Country");
+            airlineCountry.setForeground(new Color(153,153,153));
         }
-    }//GEN-LAST:event_airlineLocationFocusLost
+    }//GEN-LAST:event_airlineCountryFocusLost
 
-    private void airlineLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_airlineLocationActionPerformed
+    private void airlineCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_airlineCountryActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_airlineLocationActionPerformed
+    }//GEN-LAST:event_airlineCountryActionPerformed
 
     private void submitButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitButtonMousePressed
         submitButton.setBackground(new Color(70,194,99));
@@ -192,11 +192,11 @@ public class airlinesForm extends javax.swing.JFrame {
 
     private void submitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitButtonMouseClicked
         dbConnector dbc = new dbConnector();
-        if (airlineName.getText().isEmpty() || airlineLocation.getText().isEmpty()){
+        if (airlineName.getText().isEmpty() || airlineCountry.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "All fields are required!");
         } else {
-            if (dbc.insertData("INSERT INTO airlines (Airline, Location)"   
-                + "VALUES('" + airlineName.getText() + "','" + airlineLocation.getText() + "')"))
+            if (dbc.insertData("INSERT INTO airlines (Airline, Country)"   
+                + "VALUES('" + airlineName.getText() + "','" + airlineCountry.getText() + "')"))
             {
                 JOptionPane.showMessageDialog(null, "Added Successfully.");               
             } else {
@@ -207,9 +207,6 @@ public class airlinesForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_submitButtonMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -243,7 +240,7 @@ public class airlinesForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField airlineLocation;
+    private javax.swing.JTextField airlineCountry;
     private javax.swing.JTextField airlineName;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;

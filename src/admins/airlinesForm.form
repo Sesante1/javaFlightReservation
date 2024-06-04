@@ -50,7 +50,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="airlineName" alignment="1" pref="304" max="32767" attributes="0"/>
-                      <Component id="airlineLocation" alignment="1" pref="304" max="32767" attributes="0"/>
+                      <Component id="airlineCountry" alignment="1" pref="304" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -67,7 +67,7 @@
                   <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                   <Component id="airlineName" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                  <Component id="airlineLocation" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="airlineCountry" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="submitButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="43" max="32767" attributes="0"/>
@@ -102,7 +102,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="airlineNameActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="airlineLocation">
+        <Component class="javax.swing.JTextField" name="airlineCountry">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
@@ -123,9 +123,9 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="airlineLocationFocusGained"/>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="airlineLocationFocusLost"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="airlineLocationActionPerformed"/>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="airlineCountryFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="airlineCountryFocusLost"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="airlineCountryActionPerformed"/>
           </Events>
         </Component>
         <Container class="panelRoundComponents.PanelRound" name="submitButton">

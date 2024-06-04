@@ -157,7 +157,7 @@ public class createUserForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 87, 228));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Create User");
+        jLabel1.setText("New User");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 820, 50));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
