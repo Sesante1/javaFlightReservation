@@ -25,8 +25,11 @@ public class printTickets extends TransitionsForm {
     public void displayData(){
         try{
             dbConnector dbc = new dbConnector();
-            ResultSet rs = dbc.getData("SELECT * FROM users_table");
-            tableTicket.setModel(DbUtils.resultSetToTableModel(rs));
+            ResultSet rs = dbc.getData("SELECT customer_table.First_Name, customer_table.Last_Name, flights_table.Flying_From, flights_table.Flying_To, booked_flights.Gate, flights_table.Departure, flights_table.Flight_Id, booked_flights.Boarding_Time, booked_flights.Seat, flights_table.Departure_Time"
+                    + " FROM booked_flights "
+                    + "INNER JOIN flights_table ON booked_flights.Flights_Id = flights_table.Flight_Id "
+                    + "INNER JOIN customer_table ON booked_flights.Customer_Id = customer_table.Id;");
+                tableTicket.setModel(DbUtils.resultSetToTableModel(rs));
             rs.close();
         }catch(SQLException ex){
             System.out.println("Errors: "+ex.getMessage());   

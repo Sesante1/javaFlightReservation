@@ -518,12 +518,10 @@ public class updateUser extends javax.swing.JFrame {
         
         if (fname.getText().isEmpty() || lname.getText().isEmpty() || email.getText().isEmpty() || phoneNumber.getText().isEmpty() || username.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "All fields are required!");
-            
         } else if (!password.getText().isEmpty()){
             if (password.getText().length() < 8){
                 JOptionPane.showMessageDialog(null, "Password must be 8 above");
             }
-            
         } else if (updateCheck()){
             System.out.println("Duplicate");
         } else {
@@ -538,10 +536,12 @@ public class updateUser extends javax.swing.JFrame {
             if (destination.isEmpty()){
                 File existingFile = new File(oldpath);
                 System.out.println("true");
+                
                 if (existingFile.exists()){
                     existingFile.delete();
                     System.out.println("exist");
                 }
+                
             } else {     
                 System.out.println("false");
                 if (!(oldpath.equals(path))){

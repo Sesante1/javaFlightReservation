@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2024 at 05:25 PM
+-- Generation Time: Jun 21, 2024 at 10:47 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -28,14 +28,14 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `flights_table` (
-  `Flight_Id` int(100) NOT NULL,
+  `Flight_Id` int(50) NOT NULL,
+  `airline_Id` int(50) NOT NULL,
   `Departure` varchar(100) NOT NULL,
   `Departure_Time` varchar(100) NOT NULL,
-  `Arrival` varchar(200) NOT NULL,
+  `Arrival` varchar(100) NOT NULL,
   `Arrival_Time` varchar(100) NOT NULL,
   `Flying_From` varchar(100) NOT NULL,
   `Flying_To` varchar(100) NOT NULL,
-  `Airline` varchar(100) NOT NULL,
   `Price` varchar(100) DEFAULT NULL,
   `Seats` int(100) NOT NULL,
   `Status` varchar(100) NOT NULL
@@ -45,10 +45,12 @@ CREATE TABLE `flights_table` (
 -- Dumping data for table `flights_table`
 --
 
-INSERT INTO `flights_table` (`Flight_Id`, `Departure`, `Departure_Time`, `Arrival`, `Arrival_Time`, `Flying_From`, `Flying_To`, `Airline`, `Price`, `Seats`, `Status`) VALUES
-(1, '12-05-2024', '1:00', '12-05-2024', '2:00', 'cebu', 'manila', 'cebu pacific', '200', 200, 'Departed'),
-(2, '07-06-2024', '3:00', '19-05-2024', '3:00', 'manila', 'cebu', 'Phillipine Airline', '300', 200, 'not departed'),
-(3, '12-05-2024', '3:00 PM', '12-05-2024', '4:00 PM', 'bacolod', 'manila', 'Cebu Pacific', '300', 200, 'Departed');
+INSERT INTO `flights_table` (`Flight_Id`, `airline_Id`, `Departure`, `Departure_Time`, `Arrival`, `Arrival_Time`, `Flying_From`, `Flying_To`, `Price`, `Seats`, `Status`) VALUES
+(8, 1, '25-05-2024', '1:00', '25-05-2024', '2:00', 'manila', 'bacolod', '1000', 200, 'Arrived'),
+(10, 2, '01-06-2024', '4:00 PM', '25-05-2024', '3:00 PM', 'chicago', 'canada', '400', 200, 'Arrived'),
+(11, 2, '03-06-2024', '3:00', '03-06-2024', '4:00', 'manila', 'bacolod', '3000', 200, 'Not yet departed'),
+(12, 1, '23-06-2024', '12:00 PM', '25-06-2024', '12:00 AM', 'cebu', 'japan', '2000', 100, 'Not yet departed'),
+(13, 1, '22-06-2024', '2:00 am', '22-06-2024', '1:00 pm', 'asdf', 'asdf', '12', 200, 'Not yet departed');
 
 --
 -- Indexes for dumped tables
@@ -58,7 +60,8 @@ INSERT INTO `flights_table` (`Flight_Id`, `Departure`, `Departure_Time`, `Arriva
 -- Indexes for table `flights_table`
 --
 ALTER TABLE `flights_table`
-  ADD PRIMARY KEY (`Flight_Id`);
+  ADD PRIMARY KEY (`Flight_Id`),
+  ADD KEY `a_Id` (`airline_Id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -68,7 +71,17 @@ ALTER TABLE `flights_table`
 -- AUTO_INCREMENT for table `flights_table`
 --
 ALTER TABLE `flights_table`
-  MODIFY `Flight_Id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Flight_Id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `flights_table`
+--
+ALTER TABLE `flights_table`
+  ADD CONSTRAINT `a_Id` FOREIGN KEY (`airline_Id`) REFERENCES `airlines` (`Id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

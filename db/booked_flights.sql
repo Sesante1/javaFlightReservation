@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2024 at 05:25 PM
+-- Generation Time: Jun 21, 2024 at 10:47 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -31,9 +31,18 @@ CREATE TABLE `booked_flights` (
   `Id` int(11) NOT NULL,
   `Flights_Id` int(11) NOT NULL,
   `Customer_Id` int(11) NOT NULL,
-  `status` varchar(100) NOT NULL,
-  `Booked_Date` varchar(100) NOT NULL
+  `Booked_Date` varchar(100) NOT NULL,
+  `Gate` varchar(100) NOT NULL,
+  `Seat` varchar(100) NOT NULL,
+  `Boarding_Time` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `booked_flights`
+--
+
+INSERT INTO `booked_flights` (`Id`, `Flights_Id`, `Customer_Id`, `Booked_Date`, `Gate`, `Seat`, `Boarding_Time`) VALUES
+(1, 8, 2, '2024-06-22 00:27:31', '2', 'A1', '12:00 PM');
 
 --
 -- Indexes for dumped tables
@@ -55,7 +64,7 @@ ALTER TABLE `booked_flights`
 -- AUTO_INCREMENT for table `booked_flights`
 --
 ALTER TABLE `booked_flights`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

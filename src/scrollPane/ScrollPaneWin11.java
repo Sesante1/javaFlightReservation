@@ -35,6 +35,10 @@ public class ScrollPaneWin11 extends JScrollPane {
         });
     }
 
+    public void fixTable(ScrollPaneWin11 history) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     private class ScrollLayout extends ScrollPaneLayout {
 
         @Override

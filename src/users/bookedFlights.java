@@ -43,11 +43,15 @@ public class bookedFlights extends TransitionsForm {
     public void searchFlightss(){
        try {
             dbConnector dbc = new dbConnector();
-            //String query = "SELECT Flight_Id, Departure, Arrival, Status, Price FROM flights_table WHERE Flying_From = '" + Departure.getSelectedItem() + "' AND Flying_To = '" + flyingTo.getSelectedItem() + "'";
-            String query = "SELECT flights_table.Flight_Id, airlines.Airline, flights_table.Departure, flights_table.Arrival," +
-                           "flights_table.Status, flights_table.Price " +
-                           "FROM airlines " +
-                           "INNER JOIN flights_table ON airlines.Id = flights_table.airline_Id WHERE Flying_From = '"+ Departure.getSelectedItem() +"' AND Flying_To = '"+ flyingTo.getSelectedItem() +"'";
+            String query = "SELECT flights_table.Flight_Id, airlines.Airline, flights_table.Departure, flights_table.Arrival, " +
+               "flights_table.Status, flights_table.Price " +
+               "FROM airlines " +
+               "INNER JOIN flights_table ON airlines.Id = flights_table.airline_Id " +
+               "WHERE Flying_From = '" + Departure.getSelectedItem() + "' " +
+               "AND Flying_To = '" + flyingTo.getSelectedItem() + "' " +
+               "AND flights_table.Status IN ('Not yet Departed', 'Arrived') " +
+               "AND flights_table.Departure = '" + departureDate.getText() + "'";
+            
             ResultSet rs = dbc.getData(query);
             todayFlight.setModel(DbUtils.resultSetToTableModel(rs));
             rs.close();
@@ -121,17 +125,6 @@ public class bookedFlights extends TransitionsForm {
         }
     }
     
-    public static String getLocalDate(){
-        
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        String formattedDateTime = currentDateTime.format(formatter);
-        
-        return formattedDateTime;
-        //System.out.println("Current Date and Time: " + formattedDateTime);
-    }
     
     public void searchFlights(){
         try{
@@ -159,6 +152,7 @@ public class bookedFlights extends TransitionsForm {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        date = new com.raven.datechooser.DateChooser();
         jPanel1 = new javax.swing.JPanel();
         panelRound1 = new panelRoundComponents.PanelRound();
         jLabel2 = new javax.swing.JLabel();
@@ -179,6 +173,9 @@ public class bookedFlights extends TransitionsForm {
         jLabel1 = new javax.swing.JLabel();
         addCustomer = new panelRoundComponents.PanelRound();
         jLabel6 = new javax.swing.JLabel();
+
+        date.setForeground(new java.awt.Color(41, 123, 250));
+        date.setTextRefernce(departureDate);
 
         jPanel1.setBackground(new java.awt.Color(245, 245, 245));
 
@@ -212,7 +209,6 @@ public class bookedFlights extends TransitionsForm {
 
         departureDate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         departureDate.setForeground(new java.awt.Color(130, 130, 130));
-        departureDate.setText("  Departure Date");
         departureDate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         departureDate.setPreferredSize(new java.awt.Dimension(6, 30));
         departureDate.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -470,7 +466,6 @@ public class bookedFlights extends TransitionsForm {
                 .addGroup(roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollPaneWin111, javax.swing.GroupLayout.DEFAULT_SIZE, 974, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(addCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(selectButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -594,13 +589,34 @@ public class bookedFlights extends TransitionsForm {
             try {
                 dbConnector dbc = new dbConnector();
                 TableModel tbl = todayFlight.getModel();
-                ResultSet rs = dbc.getData("SELECT * FROM flights_table WHERE Flight_Id = '"+ tbl.getValueAt(rowIndex, 0) +"'");
+                //ResultSet rs = dbc.getData("SELECT * FROM flights_table WHERE Flight_Id = '"+ tbl.getValueAt(rowIndex, 0) +"'");
+               
+                /*String query = "SELECT flights_table.Flight_Id, airlines.Airline, flights_table.Departure, flights_table.Arrival, " +
+                           "flights_table.Status, flights_table.Price " +
+                           "FROM airlines " +
+                           "INNER JOIN flights_table ON airlines.Id = flights_table.airline_Id " +
+                           "WHERE Flight_Id = '" + tbl.getValueAt(rowIndex, 0)  + "'";*/
                 
-                // password double hashing on updating users
+                /*String query = "SELECT flights_table.Flight_Id, airlines.Airline, flights_table.Departure, flights_table.Arrival, " +
+                   "flights_table.Status, flights_table.Price " +
+                   "FROM airlines " +
+                   "INNER JOIN flights_table ON airlines.Id = flights_table.airline_Id " +
+                   "WHERE flights_table.Flight_Id = '" + tbl.getValueAt(rowIndex, 0) + "'";*/
+                
+                String query = "SELECT flights_table.Flight_Id, airlines.Airline, flights_table.Departure, flights_table.Arrival, " +
+                                "flights_table.Status, flights_table.Price, flights_table.Flying_From, flights_table.Flying_To " +
+                                "FROM airlines " +
+                                "INNER JOIN flights_table ON airlines.Id = flights_table.airline_Id " +
+                                "WHERE flights_table.Flight_Id = '" + tbl.getValueAt(rowIndex, 0) + "'";
+                
+                ResultSet rs = dbc.getData(query);
                 
                 if (rs.next()){
-                    //booking.uid.setText("" + rs.getInt("Id"));
-                    //booking.flightId = rs.getInt("Flight_Id");
+                    book.flightId.setText("" + rs.getInt("Flight_Id"));
+                    book.airlines.setText("" + rs.getString("Airline"));
+                    book.departure.setText("" + rs.getString("Flying_From"));
+                    book.arrival.setText("" + rs.getString("Flying_To"));
+                    book.fare.setText("" + rs.getString("Price"));
                 }
                 book.setVisible(true);
             } catch(SQLException ex){
@@ -643,6 +659,7 @@ public class bookedFlights extends TransitionsForm {
     private combo_suggestion.ComboBoxSuggestion Departure;
     private javax.swing.JTextField Return;
     private panelRoundComponents.PanelRound addCustomer;
+    private com.raven.datechooser.DateChooser date;
     private javax.swing.JTextField departureDate;
     private combo_suggestion.ComboBoxSuggestion flyingTo;
     private javax.swing.JLabel jLabel1;

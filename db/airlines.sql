@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2024 at 05:25 PM
+-- Generation Time: Jun 21, 2024 at 10:47 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -30,16 +30,16 @@ SET time_zone = "+00:00";
 CREATE TABLE `airlines` (
   `Id` int(200) NOT NULL,
   `Airline` varchar(200) NOT NULL,
-  `Location` varchar(200) NOT NULL
+  `Country` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `airlines`
 --
 
-INSERT INTO `airlines` (`Id`, `Airline`, `Location`) VALUES
-(1, 'Cebu Pacific', 'Mactan Cebu'),
-(2, 'Ninoy Internationl Airport', 'Ninoy');
+INSERT INTO `airlines` (`Id`, `Airline`, `Country`) VALUES
+(1, 'Cebu Pacific', ''),
+(2, 'Ninoy Internationl Airport', '');
 
 --
 -- Indexes for dumped tables
