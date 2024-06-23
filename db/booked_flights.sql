@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2024 at 10:47 PM
+-- Generation Time: Jun 23, 2024 at 09:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -42,7 +42,8 @@ CREATE TABLE `booked_flights` (
 --
 
 INSERT INTO `booked_flights` (`Id`, `Flights_Id`, `Customer_Id`, `Booked_Date`, `Gate`, `Seat`, `Boarding_Time`) VALUES
-(1, 8, 2, '2024-06-22 00:27:31', '2', 'A1', '12:00 PM');
+(1, 8, 2, '2024-06-22 ', '2', 'A1', '12:00 PM'),
+(2, 8, 1, '2024-06-22', '1', 'A6', '3:00 am');
 
 --
 -- Indexes for dumped tables
@@ -64,7 +65,7 @@ ALTER TABLE `booked_flights`
 -- AUTO_INCREMENT for table `booked_flights`
 --
 ALTER TABLE `booked_flights`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

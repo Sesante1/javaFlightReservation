@@ -89,4 +89,38 @@ public class dbConnector {
             System.out.println("Error: " + ex);
         }
     }
+    
+    public void deleteAirlines(int id, String table){
+        try {
+            PreparedStatement pst = connect.prepareStatement("DELETE FROM airlines WHERE Id = ?");
+            pst.setInt(1, id);
+            
+            int rowsDeleted = pst.executeUpdate();
+            if (rowsDeleted > 0){
+                JOptionPane.showMessageDialog(null, "Deleted Successfully!");
+            } else{
+                JOptionPane.showMessageDialog(null, "Deletion Failed!");
+            }
+            pst.close();
+        } catch (SQLException ex){
+            System.out.println("Error: " + ex);
+        }
+    }
+    
+    public void deleteBooking(int id, String table){
+        try {
+            PreparedStatement pst = connect.prepareStatement("DELETE FROM booked_flights WHERE Id = ?");
+            pst.setInt(1, id);
+            
+            int rowsDeleted = pst.executeUpdate();
+            if (rowsDeleted > 0){
+                JOptionPane.showMessageDialog(null, "Deleted Successfully!");
+            } else{
+                JOptionPane.showMessageDialog(null, "Deletion Failed!");
+            }
+            pst.close();
+        } catch (SQLException ex){
+            System.out.println("Error: " + ex);
+        }
+    }
 }

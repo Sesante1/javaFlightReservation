@@ -156,9 +156,7 @@ public class bookedFlights extends TransitionsForm {
         jPanel1 = new javax.swing.JPanel();
         panelRound1 = new panelRoundComponents.PanelRound();
         jLabel2 = new javax.swing.JLabel();
-        Return = new javax.swing.JTextField();
         departureDate = new javax.swing.JTextField();
-        returnAirTickets = new designComponents.Combobox();
         searchFlight = new panelRoundComponents.PanelRound();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -166,6 +164,7 @@ public class bookedFlights extends TransitionsForm {
         flyingTo = new combo_suggestion.ComboBoxSuggestion();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         roundPanel1 = new panelRoundComponents.RoundPanel();
         scrollPaneWin111 = new scrollPane.ScrollPaneWin11();
         todayFlight = new table.Table();
@@ -188,25 +187,6 @@ public class bookedFlights extends TransitionsForm {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/back-forth-gif.gif"))); // NOI18N
 
-        Return.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Return.setForeground(new java.awt.Color(130, 130, 130));
-        Return.setText("  Return");
-        Return.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        Return.setPreferredSize(new java.awt.Dimension(6, 30));
-        Return.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                ReturnFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                ReturnFocusLost(evt);
-            }
-        });
-        Return.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ReturnActionPerformed(evt);
-            }
-        });
-
         departureDate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         departureDate.setForeground(new java.awt.Color(130, 130, 130));
         departureDate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -222,20 +202,6 @@ public class bookedFlights extends TransitionsForm {
         departureDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 departureDateActionPerformed(evt);
-            }
-        });
-
-        returnAirTickets.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "One Way", "Round Trip" }));
-        returnAirTickets.setSelectedIndex(-1);
-        returnAirTickets.setLabeText("return air tickets");
-        returnAirTickets.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                returnAirTicketsMouseClicked(evt);
-            }
-        });
-        returnAirTickets.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                returnAirTicketsActionPerformed(evt);
             }
         });
 
@@ -302,64 +268,59 @@ public class bookedFlights extends TransitionsForm {
         jLabel5.setForeground(new java.awt.Color(153, 153, 153));
         jLabel5.setText("Flying To");
 
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel8.setText("Departure Date");
+
         javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
         panelRound1.setLayout(panelRound1Layout);
         panelRound1Layout.setHorizontalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRound1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(417, 417, 417)
+                .addComponent(searchFlight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(432, Short.MAX_VALUE))
+            .addGroup(panelRound1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelRound1Layout.createSequentialGroup()
-                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Departure, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(returnAirTickets, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Departure, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelRound1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(searchFlight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelRound1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addGroup(panelRound1Layout.createSequentialGroup()
-                                .addComponent(flyingTo, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(departureDate, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Return, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(flyingTo, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(30, 30, 30)
+                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(departureDate, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(46, 46, 46))
         );
         panelRound1Layout.setVerticalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(returnAirTickets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelRound1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(flyingTo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(departureDate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Return, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(19, 19, 19)
-                        .addComponent(searchFlight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25))
+                        .addGap(80, 80, 80)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Departure, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelRound1Layout.createSequentialGroup()
-                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(panelRound1Layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(jLabel2))
-                            .addGroup(panelRound1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Departure, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRound1Layout.createSequentialGroup()
+                                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel8))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(flyingTo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(departureDate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addGap(19, 19, 19)
+                .addComponent(searchFlight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
         );
 
         roundPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -516,24 +477,6 @@ public class bookedFlights extends TransitionsForm {
         );
     }// </editor-fold>//GEN-END:initComponents
     
-    private void ReturnFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ReturnFocusGained
-        if (Return.getText().equals("  Return")){
-            Return.setText("");
-            Return.setForeground(new Color(153,153,153));
-        }
-    }//GEN-LAST:event_ReturnFocusGained
-
-    private void ReturnFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ReturnFocusLost
-        if (Return.getText().equals("")){
-            Return.setText("  Return");
-            Return.setForeground(new Color(153,153,153));
-        }
-    }//GEN-LAST:event_ReturnFocusLost
-
-    private void ReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnActionPerformed
-        
-    }//GEN-LAST:event_ReturnActionPerformed
-
     private void departureDateFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_departureDateFocusGained
         if (departureDate.getText().equals("  Departure Date")){
             departureDate.setText("");
@@ -551,18 +494,6 @@ public class bookedFlights extends TransitionsForm {
     private void departureDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departureDateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_departureDateActionPerformed
-
-    private void returnAirTicketsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_returnAirTicketsMouseClicked
-        
-    }//GEN-LAST:event_returnAirTicketsMouseClicked
-
-    private void returnAirTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnAirTicketsActionPerformed
-        if (returnAirTickets.getSelectedItem().equals("One Way")){
-            Return.setVisible(false);
-        } else {
-            Return.setVisible(true);   
-        }
-    }//GEN-LAST:event_returnAirTicketsActionPerformed
 
     private void searchFlightMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchFlightMouseClicked
         searchFlightss();
@@ -589,36 +520,29 @@ public class bookedFlights extends TransitionsForm {
             try {
                 dbConnector dbc = new dbConnector();
                 TableModel tbl = todayFlight.getModel();
-                //ResultSet rs = dbc.getData("SELECT * FROM flights_table WHERE Flight_Id = '"+ tbl.getValueAt(rowIndex, 0) +"'");
-               
-                /*String query = "SELECT flights_table.Flight_Id, airlines.Airline, flights_table.Departure, flights_table.Arrival, " +
-                           "flights_table.Status, flights_table.Price " +
-                           "FROM airlines " +
-                           "INNER JOIN flights_table ON airlines.Id = flights_table.airline_Id " +
-                           "WHERE Flight_Id = '" + tbl.getValueAt(rowIndex, 0)  + "'";*/
-                
-                /*String query = "SELECT flights_table.Flight_Id, airlines.Airline, flights_table.Departure, flights_table.Arrival, " +
-                   "flights_table.Status, flights_table.Price " +
-                   "FROM airlines " +
-                   "INNER JOIN flights_table ON airlines.Id = flights_table.airline_Id " +
-                   "WHERE flights_table.Flight_Id = '" + tbl.getValueAt(rowIndex, 0) + "'";*/
                 
                 String query = "SELECT flights_table.Flight_Id, airlines.Airline, flights_table.Departure, flights_table.Arrival, " +
-                                "flights_table.Status, flights_table.Price, flights_table.Flying_From, flights_table.Flying_To " +
+                                "flights_table.Status, flights_table.Price, flights_table.Flying_From, flights_table.Flying_To, flights_table.Seats " +
                                 "FROM airlines " +
                                 "INNER JOIN flights_table ON airlines.Id = flights_table.airline_Id " +
                                 "WHERE flights_table.Flight_Id = '" + tbl.getValueAt(rowIndex, 0) + "'";
                 
                 ResultSet rs = dbc.getData(query);
-                
+                int availableSeats = 0;
                 if (rs.next()){
                     book.flightId.setText("" + rs.getInt("Flight_Id"));
                     book.airlines.setText("" + rs.getString("Airline"));
                     book.departure.setText("" + rs.getString("Flying_From"));
                     book.arrival.setText("" + rs.getString("Flying_To"));
                     book.fare.setText("" + rs.getString("Price"));
+                    availableSeats = rs.getInt("Seats");
                 }
-                book.setVisible(true);
+                if (availableSeats == 0){
+                    JOptionPane.showMessageDialog(null, "This flight is fully booked");
+                } else {
+                    book.setVisible(true);
+                }
+                
             } catch(SQLException ex){
                 System.out.println(""+ ex);
             }
@@ -657,7 +581,6 @@ public class bookedFlights extends TransitionsForm {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private combo_suggestion.ComboBoxSuggestion Departure;
-    private javax.swing.JTextField Return;
     private panelRoundComponents.PanelRound addCustomer;
     private com.raven.datechooser.DateChooser date;
     private javax.swing.JTextField departureDate;
@@ -669,9 +592,9 @@ public class bookedFlights extends TransitionsForm {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private panelRoundComponents.PanelRound panelRound1;
-    private designComponents.Combobox returnAirTickets;
     private panelRoundComponents.RoundPanel roundPanel1;
     private scrollPane.ScrollPaneWin11 scrollPaneWin111;
     private panelRoundComponents.PanelRound searchFlight;

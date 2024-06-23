@@ -32,12 +32,11 @@ public class manageUsers extends  TransitionsForm{
     public void displayData(){
         try{
             dbConnector dbc = new dbConnector();
-            ResultSet rs = dbc.getData("SELECT * FROM users_table");
+            ResultSet rs = dbc.getData("SELECT Id, First_Name, Last_Name, Email, User_Type, Status FROM users_table");
             registeredUsers.setModel(DbUtils.resultSetToTableModel(rs));
             rs.close();
         }catch(SQLException ex){
             System.out.println("Errors: "+ex.getMessage());
-        
         }
     }
     
@@ -525,6 +524,8 @@ public class manageUsers extends  TransitionsForm{
         TableRowSorter<DefaultTableModel> obj = new TableRowSorter<>(ob);
         registeredUsers.setRowSorter(obj);
         obj.setRowFilter(RowFilter.regexFilter(searchBar.getText()));*/
+        
+
     }//GEN-LAST:event_searchMouseClicked
 
     private void searchBarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyPressed
@@ -536,7 +537,44 @@ public class manageUsers extends  TransitionsForm{
         TableRowSorter<DefaultTableModel> obj = new TableRowSorter<>(ob);
         registeredUsers.setRowSorter(obj);
         obj.setRowFilter(RowFilter.regexFilter(searchBar.getText()));*/
-        
+        /*DefaultTableModel ob = (DefaultTableModel) registeredUsers.getModel();
+        TableRowSorter<DefaultTableModel> obj = new TableRowSorter<>(ob);
+        registeredUsers.setRowSorter(obj);
+        obj.setRowFilter(RowFilter.regexFilter(searchBar.getText()));
+
+        // Get the row count after filtering
+        int rowCount = obj.getViewRowCount();
+
+        // Loop through the filtered rows to get the model indices
+        for (int i = 0; i < rowCount; i++) {
+            int viewIndex = i;
+            int modelIndex = registeredUsers.convertRowIndexToModel(viewIndex);
+            System.out.println("View Index: " + viewIndex + ", Model Index: " + modelIndex);
+        }*/
+        DefaultTableModel ob = (DefaultTableModel) registeredUsers.getModel();
+        TableRowSorter<DefaultTableModel> obj = new TableRowSorter<>(ob);
+        registeredUsers.setRowSorter(obj);
+        obj.setRowFilter(RowFilter.regexFilter(searchBar.getText()));
+
+        // Get the row index in the view
+        int rowCount = obj.getViewRowCount();
+        for (int i = 0; i < rowCount; i++) {
+            int viewIndex = i;
+            int modelIndex = registeredUsers.convertRowIndexToModel(viewIndex);
+            System.out.println("View Index: " + viewIndex + ", Model Index: " + modelIndex);
+
+            // If you want to select the row or perform any operation
+            // history.getSelectionModel().setSelectionInterval(viewIndex, viewIndex);
+        }
+
+        // Example: if you want to select the first row after filtering
+        if (rowCount > 0) {
+            registeredUsers.setRowSelectionInterval(0, 0);
+            int selectedViewIndex = registeredUsers.getSelectedRow();
+            int selectedModelIndex = registeredUsers.convertRowIndexToModel(selectedViewIndex);
+            System.out.println("Selected View Index: " + selectedViewIndex + ", Selected Model Index: " + selectedModelIndex);
+        }
+
     
     }//GEN-LAST:event_searchBarKeyReleased
 

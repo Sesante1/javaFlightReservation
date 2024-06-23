@@ -1,10 +1,14 @@
 
 package users;
 
+import admins.updateUser;
 import config.dbConnector;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 import transition.TransitionsForm;
 
@@ -25,7 +29,7 @@ public class printTickets extends TransitionsForm {
     public void displayData(){
         try{
             dbConnector dbc = new dbConnector();
-            ResultSet rs = dbc.getData("SELECT customer_table.First_Name, customer_table.Last_Name, flights_table.Flying_From, flights_table.Flying_To, booked_flights.Gate, flights_table.Departure, flights_table.Flight_Id, booked_flights.Boarding_Time, booked_flights.Seat, flights_table.Departure_Time"
+            ResultSet rs = dbc.getData("SELECT booked_flights.Id, customer_table.First_Name, customer_table.Last_Name, flights_table.Flying_From, flights_table.Flying_To, booked_flights.Gate, flights_table.Departure, booked_flights.Boarding_Time, booked_flights.Seat, flights_table.Departure_Time"
                     + " FROM booked_flights "
                     + "INNER JOIN flights_table ON booked_flights.Flights_Id = flights_table.Flight_Id "
                     + "INNER JOIN customer_table ON booked_flights.Customer_Id = customer_table.Id;");
@@ -224,7 +228,46 @@ public class printTickets extends TransitionsForm {
 
     private void printTicketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printTicketMouseClicked
         printTicket ticket = new printTicket();
-        ticket.setVisible(true);
+        
+        int rowIndex = tableTicket.getSelectedRow();
+        
+        if (rowIndex < 0){
+            JOptionPane.showMessageDialog(null, "Please select row to update");
+        } else{
+            
+            ticket.setVisible(true);
+            
+            try {
+                dbConnector dbc = new dbConnector();
+                TableModel tbl = tableTicket.getModel();
+                
+                ResultSet rs = dbc.getData("SELECT booked_flights.Id, customer_table.First_Name, customer_table.Last_Name, flights_table.Flying_From, flights_table.Flying_To, booked_flights.Gate, flights_table.Departure, flights_table.Flight_Id, booked_flights.Boarding_Time, booked_flights.Seat, flights_table.Departure_Time"
+                                            + " FROM booked_flights "
+                                            + "INNER JOIN flights_table ON booked_flights.Flights_Id = flights_table.Flight_Id "
+                                            + "INNER JOIN customer_table ON booked_flights.Customer_Id = customer_table.Id "
+                                            + "WHERE booked_flights.Id = '"+ tbl.getValueAt(rowIndex, 0) +"'");
+ 
+                if (rs.next()){
+                    ticket.Flight.setText("" + rs.getInt("Flight_Id"));
+                    ticket.passengerName.setText("" + rs.getString("First_Name") + " " + rs.getString("Last_Name"));
+                    ticket.from.setText("" + rs.getString("Flying_From"));
+                    ticket.flyingTo.setText("" + rs.getString("Flying_To"));
+                    ticket.gate.setText("" + rs.getString("Gate"));
+                    ticket.date.setText("" + rs.getString("Departure"));
+                    ticket.seat.setText("" + rs.getString("Seat"));
+                    ticket.time.setText("" + rs.getString("Departure_Time"));
+                    ticket.boardingTime.setText("" + rs.getString("Boarding_Time"));
+                    ticket.flyingFrom.setText("" + rs.getString("Flying_From"));
+                    ticket.nameOfPassenger.setText("" + rs.getString("First_Name") + " " + rs.getString("Last_Name"));
+                    ticket.to.setText("" + rs.getString("Flying_To"));
+                    ticket.dates.setText("" + rs.getString("Departure"));
+                    ticket.seats.setText("" + rs.getString("Seat"));
+                }
+                
+            } catch(SQLException ex){
+                System.out.println(""+ ex);
+            }
+        }
     }//GEN-LAST:event_printTicketMouseClicked
 
     private void printTicketMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printTicketMousePressed

@@ -5,8 +5,11 @@ import config.dbConnector;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
@@ -44,11 +47,22 @@ public class bookingFlight extends javax.swing.JFrame {
         }
     }
     
+    public static boolean isValidTime(String timeStr) {
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+        sdf.setLenient(false);
+        try {
+            Date time = sdf.parse(timeStr);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+    
     public static String getLocalDate(){
         
         LocalDateTime currentDateTime = LocalDateTime.now();
         
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         String formattedDateTime = currentDateTime.format(formatter);
         
@@ -87,6 +101,7 @@ public class bookingFlight extends javax.swing.JFrame {
         departure = new javax.swing.JLabel();
         arrival = new javax.swing.JLabel();
         fare = new javax.swing.JLabel();
+        boardingTimeWarning = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -284,6 +299,9 @@ public class bookingFlight extends javax.swing.JFrame {
         fare.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         fare.setForeground(new java.awt.Color(128, 128, 128));
 
+        boardingTimeWarning.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
+        boardingTimeWarning.setForeground(new java.awt.Color(255, 0, 0));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -333,7 +351,9 @@ public class bookingFlight extends javax.swing.JFrame {
                                             .addComponent(seat, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addGap(19, 19, 19)
-                                        .addComponent(boardingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(boardingTimeWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(boardingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                         .addGap(5, 6, Short.MAX_VALUE)
                         .addComponent(panelShadow1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(13, 13, 13)))
@@ -379,7 +399,9 @@ public class bookingFlight extends javax.swing.JFrame {
                             .addComponent(boardingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(arrival, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(boardingTimeWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fare, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(64, 64, 64)
@@ -412,20 +434,34 @@ public class bookingFlight extends javax.swing.JFrame {
             
             if (gate.getText().isEmpty()){
                 gate.setBorder(border);
+            } else {
+                gate.setBorder(defaultBorder);
             }
             
             if (seat.getText().isEmpty()){
                 seat.setBorder(border);
+            } else {
+                seat.setBorder(defaultBorder);
             }
             
             if (boardingTime.getText().isEmpty()){
                 boardingTime.setBorder(border);
+            } else {
+                boardingTime.setBorder(defaultBorder);
             }
             
-        } else {
+        } else if (!isValidTime(boardingTime.getText())){
+            if (!isValidTime(boardingTime.getText())){
+                boardingTime.setBorder(border);
+                boardingTimeWarning.setText("Please follow the time format '12:00 pm'");
+            }
+        } 
+        else {
             if (dbc.insertData("INSERT INTO booked_flights (Flights_Id, Customer_Id, Booked_Date, Gate, Seat, Boarding_Time) " +
                    "VALUES ('" + flightId.getText() + "', '" + customerId + "', '" + getLocalDate() + "', '" + 
                    gate.getText() + "', '" + seat.getText() + "', '" + boardingTime.getText() + "')")) {
+                String updateQuery = "UPDATE flights_table SET Seats = Seats - 1 WHERE Flight_Id = '" + flightId.getText() + "'";
+                dbc.updateData(updateQuery);
                 JOptionPane.showMessageDialog(null, "Added Successfully.");
             } else {
                 JOptionPane.showMessageDialog(null, "Connection Error!");
@@ -521,6 +557,7 @@ public class bookingFlight extends javax.swing.JFrame {
     public javax.swing.JLabel airlines;
     public javax.swing.JLabel arrival;
     private javax.swing.JTextField boardingTime;
+    private javax.swing.JLabel boardingTimeWarning;
     private table.Table customerDetails;
     public javax.swing.JLabel departure;
     private panelRoundComponents.PanelRound exit;

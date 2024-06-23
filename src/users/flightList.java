@@ -1,12 +1,16 @@
 
 package users;
 
+import config.dbConnector;
 import java.awt.Color;
 import java.awt.Component;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import net.proteanit.sql.DbUtils;
 
 import transition.TransitionsForm;
 
@@ -15,12 +19,26 @@ public class flightList extends TransitionsForm {
     public flightList() {
         initComponents();
         init ();
+        displayData();
     }
     
     private void init (){
         flightList.fixTable(scrollPaneWin111);
     }
-
+    
+    public void displayData(){
+        try{
+            dbConnector dbc = new dbConnector();
+            ResultSet rs = dbc.getData("SELECT flights_table.Flight_Id, airlines.Airline, flights_table.Departure, flights_table.Departure_Time, flights_table.Arrival, flights_table.Arrival_Time, flights_table.Flying_From, flights_table.Flying_To, flights_table.Price, flights_table.Seats\n" +
+                                "FROM airlines\n" +
+                                "INNER JOIN flights_table ON airlines.Id = flights_table.airline_Id ");
+            flightList.setModel(DbUtils.resultSetToTableModel(rs));
+            rs.close();
+        }catch(SQLException ex){
+            System.out.println("Errors: "+ex.getMessage());
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

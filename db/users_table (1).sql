@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2024 at 10:47 PM
+-- Generation Time: Jun 23, 2024 at 09:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,7 +46,7 @@ CREATE TABLE `users_table` (
 
 INSERT INTO `users_table` (`Id`, `First_Name`, `Last_Name`, `Email`, `Username`, `Password`, `Contact`, `User_type`, `Status`, `profile`) VALUES
 (23, 'Kendra ', 'Purisima', 'doe@email.com', 'admin', '7c222fb2927d828af22f592134e8932480637c0d', '234355', 'Admin', 'Active', 'src/userProfile/Screenshot 2024-06-03 005214.png'),
-(24, 'alice', 'testing', 'alice@email.com', 'user', '7c222fb2927d828af22f592134e8932480637c0d', '12345678', 'User', 'Active', ''),
+(24, 'alice', 'testing', 'alice@email.com', 'user', '7c222fb2927d828af22f592134e8932480637c0d', '12345678', 'User', 'Active', 'src/userProfile/Screenshot 2024-06-23 154118.png'),
 (25, 'testing', 'testing', 'testing@email.com', 'testing', '7c222fb2927d828af22f592134e8932480637c0d', '12345678', 'Admin', 'Pending', ' '),
 (26, 'testing1', 'testing1', 'testing1@email.com', 'testing1', '7c222fb2927d828af22f592134e8932480637c0d', '53445453543', 'Admin', 'Pending', 'src/userProfile/Screenshot 2024-01-31 232013.png'),
 (27, 'testing2', 'testing2', 'testing2@email.com', 'testing2', '7c222fb2927d828af22f592134e8932480637c0d', '3454356', 'Admin', 'Pending', ' '),

@@ -22,12 +22,48 @@ public class reportsBody extends javax.swing.JPanel {
         flightsArrived();
         totalFlight();
         airlineTotal();
+        totalBookedFlights();
+        totalcustomer();
+        displayData();
+    }
+    
+    public void displayData(){
+        try {
+            dbConnector dbc = new dbConnector();
+            String query = "SELECT flights_table.flight_Id," +
+                           "flights_table.Flying_From, flights_table.Flying_To, " +
+                           "flights_table.Departure, " +
+                           "flights_table.Departure_Time " +
+                           "FROM booked_flights " +
+                           "INNER JOIN flights_table ON booked_flights.Flights_Id = flights_table.Flight_Id " +
+                           "INNER JOIN customer_table ON booked_flights.Customer_Id = customer_table.Id";
+
+            ResultSet rs = dbc.getData(query);
+            bookedFlights.setModel(DbUtils.resultSetToTableModel(rs));
+            rs.close();
+        } catch (SQLException ex) {
+            System.out.println("Errors: " + ex.getMessage());
+        }
+    }
+    
+    public void totalcustomer(){
+        try{
+            dbConnector dbc = new dbConnector();
+            ResultSet rs = dbc.getData("SELECT COUNT(*) AS NROWS FROM customer_table");
+            int rowCount = 0;
+            if (rs.next()) {
+                rowCount = rs.getInt("NROWS");
+            }
+            totalCustomer.setText(""+rowCount);
+        }catch(SQLException ex){
+            System.out.println("Errors: "+ex.getMessage());
+        }
     }
     
     public void totalBookedFlights(){
         try{
             dbConnector dbc = new dbConnector();
-            ResultSet rs = dbc.getData("SELECT COUNT(*) AS NROWS FROM flights_table");
+            ResultSet rs = dbc.getData("SELECT COUNT(*) AS NROWS FROM booked_flights");
             int rowCount = 0;
             if (rs.next()) {
                 rowCount = rs.getInt("NROWS");
@@ -117,7 +153,7 @@ public class reportsBody extends javax.swing.JPanel {
     public void airlineList(){
         try{
             dbConnector dbc = new dbConnector();
-            ResultSet rs = dbc.getData("SELECT * FROM airlines");
+            ResultSet rs = dbc.getData("SELECT Airline FROM airlines");
             airlineList.setModel(DbUtils.resultSetToTableModel(rs));
             rs.close();
         }catch(SQLException ex){
@@ -183,7 +219,7 @@ public class reportsBody extends javax.swing.JPanel {
         lbDescription2 = new javax.swing.JLabel();
         totalFlight = new javax.swing.JLabel();
         roundPanel4 = new panelRoundComponents.RoundPanel();
-        income = new javax.swing.JLabel();
+        totalCustomer = new javax.swing.JLabel();
         lbDescription3 = new javax.swing.JLabel();
         roundPanel9 = new panelRoundComponents.RoundPanel();
         jScrollPane5 = new scrollPane.ScrollPaneWin11();
@@ -191,8 +227,6 @@ public class reportsBody extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         deleteButton2 = new panelRoundComponents.PanelRound();
         jLabel13 = new javax.swing.JLabel();
-        updateButton2 = new panelRoundComponents.PanelRound();
-        jLabel14 = new javax.swing.JLabel();
         roundPanel10 = new panelRoundComponents.RoundPanel();
         jScrollPane6 = new scrollPane.ScrollPaneWin11();
         flightsArrived = new table.Table();
@@ -515,15 +549,15 @@ public class reportsBody extends javax.swing.JPanel {
 
         roundPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
-        income.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
-        income.setForeground(new java.awt.Color(128, 128, 128));
-        income.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        income.setText(" 0");
+        totalCustomer.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
+        totalCustomer.setForeground(new java.awt.Color(128, 128, 128));
+        totalCustomer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        totalCustomer.setText(" 0");
 
         lbDescription3.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         lbDescription3.setForeground(new java.awt.Color(153, 153, 153));
         lbDescription3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbDescription3.setText("Total Passengers");
+        lbDescription3.setText("Total Customer");
 
         javax.swing.GroupLayout roundPanel4Layout = new javax.swing.GroupLayout(roundPanel4);
         roundPanel4.setLayout(roundPanel4Layout);
@@ -533,14 +567,14 @@ public class reportsBody extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(roundPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbDescription3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(income, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(totalCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         roundPanel4Layout.setVerticalGroup(
             roundPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(income)
+                .addComponent(totalCustomer)
                 .addGap(18, 18, 18)
                 .addComponent(lbDescription3)
                 .addContainerGap())
@@ -588,6 +622,11 @@ public class reportsBody extends javax.swing.JPanel {
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-delete-18.png"))); // NOI18N
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout deleteButton2Layout = new javax.swing.GroupLayout(deleteButton2);
         deleteButton2.setLayout(deleteButton2Layout);
@@ -602,41 +641,6 @@ public class reportsBody extends javax.swing.JPanel {
                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        updateButton2.setBackground(new java.awt.Color(83, 215, 105));
-        updateButton2.setToolTipText("Update");
-        updateButton2.setRoundBottomLeft(10);
-        updateButton2.setRoundBottomRight(10);
-        updateButton2.setRoundTopLeft(10);
-        updateButton2.setRoundTopRight(10);
-        updateButton2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                updateButton2MouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                updateButton2MousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                updateButton2MouseReleased(evt);
-            }
-        });
-
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-update-18.png"))); // NOI18N
-
-        javax.swing.GroupLayout updateButton2Layout = new javax.swing.GroupLayout(updateButton2);
-        updateButton2.setLayout(updateButton2Layout);
-        updateButton2Layout.setHorizontalGroup(
-            updateButton2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updateButton2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        updateButton2Layout.setVerticalGroup(
-            updateButton2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout roundPanel9Layout = new javax.swing.GroupLayout(roundPanel9);
         roundPanel9.setLayout(roundPanel9Layout);
         roundPanel9Layout.setHorizontalGroup(
@@ -644,12 +648,10 @@ public class reportsBody extends javax.swing.JPanel {
             .addGroup(roundPanel9Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(roundPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 951, Short.MAX_VALUE)
                     .addGroup(roundPanel9Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(updateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(deleteButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -659,8 +661,7 @@ public class reportsBody extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(roundPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deleteButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(updateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(deleteButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(22, Short.MAX_VALUE))
@@ -793,18 +794,6 @@ public class reportsBody extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteButton2MouseReleased
 
-    private void updateButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateButton2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_updateButton2MouseClicked
-
-    private void updateButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateButton2MousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_updateButton2MousePressed
-
-    private void updateButton2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateButton2MouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_updateButton2MouseReleased
-
     private void arrivedButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_arrivedButtonMouseReleased
         arrivedButton.setBackground(new Color(252,61,57));
     }//GEN-LAST:event_arrivedButtonMouseReleased
@@ -831,6 +820,24 @@ public class reportsBody extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_arrivedButtonMouseClicked
 
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+        int rowIndex = airlineList.getSelectedRow();
+        
+        if (rowIndex < 0){
+            JOptionPane.showMessageDialog(null, "Please select row to delete");
+        } else{
+            TableModel model = airlineList.getModel();
+            Object value = model.getValueAt(rowIndex, 0);
+            String id = value.toString();
+            int a = JOptionPane.showConfirmDialog(null, "Are you sure to delete ID: " + id);
+            if (a == JOptionPane.YES_OPTION){
+                dbConnector dbc = new dbConnector();
+                int ids = Integer.parseInt(id);
+                dbc.deleteAirlines(ids, "airlines");
+            }
+        }
+    }//GEN-LAST:event_jLabel13MouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private table.Table airlineList;
     private panelRoundComponents.PanelRound arrivedButton;
@@ -839,11 +846,9 @@ public class reportsBody extends javax.swing.JPanel {
     private panelRoundComponents.PanelRound departButton;
     private table.Table flightsArrived;
     private table.Table flightsDeparted;
-    private javax.swing.JLabel income;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -870,7 +875,7 @@ public class reportsBody extends javax.swing.JPanel {
     private table.Table todaysFlight;
     private javax.swing.JLabel totalAirline;
     private javax.swing.JLabel totalBooked;
+    private javax.swing.JLabel totalCustomer;
     private javax.swing.JLabel totalFlight;
-    private panelRoundComponents.PanelRound updateButton2;
     // End of variables declaration//GEN-END:variables
 }

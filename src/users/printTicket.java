@@ -242,59 +242,59 @@ public class printTicket extends javax.swing.JFrame {
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/vertical-barcode.png"))); // NOI18N
         ticket.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 60, 60, 220));
 
-        passengerName.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        passengerName.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         passengerName.setForeground(new java.awt.Color(153, 153, 153));
         ticket.add(passengerName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 200, 20));
 
-        flyingFrom.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        flyingFrom.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         flyingFrom.setForeground(new java.awt.Color(153, 153, 153));
         ticket.add(flyingFrom, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 200, 20));
 
-        flyingTo.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        flyingTo.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         flyingTo.setForeground(new java.awt.Color(153, 153, 153));
         ticket.add(flyingTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 200, 20));
 
-        gate.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        gate.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         gate.setForeground(new java.awt.Color(153, 153, 153));
         ticket.add(gate, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 190, 20));
 
-        date.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        date.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         date.setForeground(new java.awt.Color(153, 153, 153));
         ticket.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, 100, 20));
 
-        Flight.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        Flight.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         Flight.setForeground(new java.awt.Color(153, 153, 153));
         ticket.add(Flight, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, 110, 20));
 
-        boardingTime.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        boardingTime.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         boardingTime.setForeground(new java.awt.Color(153, 153, 153));
         ticket.add(boardingTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 100, 20));
 
-        seat.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        seat.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         seat.setForeground(new java.awt.Color(153, 153, 153));
         ticket.add(seat, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 80, 20));
 
-        time.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        time.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         time.setForeground(new java.awt.Color(153, 153, 153));
         ticket.add(time, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 150, 90, 20));
 
-        nameOfPassenger.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        nameOfPassenger.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         nameOfPassenger.setForeground(new java.awt.Color(153, 153, 153));
         ticket.add(nameOfPassenger, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 90, 230, 20));
 
-        from.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        from.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         from.setForeground(new java.awt.Color(153, 153, 153));
         ticket.add(from, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 154, 230, 20));
 
-        to.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        to.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         to.setForeground(new java.awt.Color(153, 153, 153));
         ticket.add(to, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 210, 240, 20));
 
-        seats.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        seats.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         seats.setForeground(new java.awt.Color(153, 153, 153));
         ticket.add(seats, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 250, 130, 20));
 
-        dates.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        dates.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         dates.setForeground(new java.awt.Color(153, 153, 153));
         ticket.add(dates, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 250, 100, 20));
 
@@ -489,15 +489,15 @@ public class printTicket extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Flight;
-    private javax.swing.JLabel boardingTime;
+    public javax.swing.JLabel Flight;
+    public javax.swing.JLabel boardingTime;
     private panelRoundComponents.PanelRound cancelButton;
-    private javax.swing.JLabel date;
-    private javax.swing.JLabel dates;
-    private javax.swing.JLabel flyingFrom;
-    private javax.swing.JLabel flyingTo;
-    private javax.swing.JLabel from;
-    private javax.swing.JLabel gate;
+    public javax.swing.JLabel date;
+    public javax.swing.JLabel dates;
+    public javax.swing.JLabel flyingFrom;
+    public javax.swing.JLabel flyingTo;
+    public javax.swing.JLabel from;
+    public javax.swing.JLabel gate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -521,18 +521,18 @@ public class printTicket extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel nameOfPassenger;
+    public javax.swing.JLabel nameOfPassenger;
     private panelRoundComponents.PanelRound panelRound2;
     private panelRoundComponents.PanelRound panelRound3;
     private panelRoundComponents.PanelRound panelRound4;
     private panelRoundComponents.PanelRound panelRound5;
-    private javax.swing.JLabel passengerName;
+    public javax.swing.JLabel passengerName;
     private panelRoundComponents.PanelRound printButton;
-    private javax.swing.JLabel seat;
-    private javax.swing.JLabel seats;
+    public javax.swing.JLabel seat;
+    public javax.swing.JLabel seats;
     private panelRoundComponents.PanelRound ticket;
-    private javax.swing.JLabel time;
-    private javax.swing.JLabel to;
+    public javax.swing.JLabel time;
+    public javax.swing.JLabel to;
     // End of variables declaration//GEN-END:variables
 
     private void printRecord (JPanel panel){

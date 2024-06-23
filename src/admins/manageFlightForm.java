@@ -6,6 +6,7 @@ import config.dbConnector;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
@@ -20,7 +21,7 @@ public class manageFlightForm extends TransitionsForm {
     }
     
     private void init(){
-        registeredUsers.fixTable(scrollPaneWin111);
+        flightList.fixTable(scrollPaneWin111);
     }
     
     public void displayData(){
@@ -29,7 +30,7 @@ public class manageFlightForm extends TransitionsForm {
             ResultSet rs = dbc.getData("SELECT flights_table.Flight_Id, airlines.Airline, flights_table.Departure, flights_table.Departure_Time, flights_table.Arrival, flights_table.Arrival_Time, flights_table.Flying_From, flights_table.Flying_To, flights_table.Price, flights_table.Seats\n" +
                                 "FROM airlines\n" +
                                 "INNER JOIN flights_table ON airlines.Id = flights_table.airline_Id ");
-            registeredUsers.setModel(DbUtils.resultSetToTableModel(rs));
+            flightList.setModel(DbUtils.resultSetToTableModel(rs));
             rs.close();
         }catch(SQLException ex){
             System.out.println("Errors: "+ex.getMessage());
@@ -43,7 +44,7 @@ public class manageFlightForm extends TransitionsForm {
         jPanel1 = new javax.swing.JPanel();
         roundPanel1 = new panelRoundComponents.RoundPanel();
         scrollPaneWin111 = new scrollPane.ScrollPaneWin11();
-        registeredUsers = new table.Table();
+        flightList = new table.Table();
         addAirlinesButton = new panelRoundComponents.PanelRound();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -74,7 +75,7 @@ public class manageFlightForm extends TransitionsForm {
         scrollPaneWin111.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         scrollPaneWin111.setForeground(new java.awt.Color(102, 102, 102));
 
-        registeredUsers.setModel(new javax.swing.table.DefaultTableModel(
+        flightList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -82,7 +83,7 @@ public class manageFlightForm extends TransitionsForm {
 
             }
         ));
-        scrollPaneWin111.setViewportView(registeredUsers);
+        scrollPaneWin111.setViewportView(flightList);
 
         roundPanel1.add(scrollPaneWin111, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 960, 330));
 
@@ -231,6 +232,9 @@ public class manageFlightForm extends TransitionsForm {
         updateButton.setRoundTopLeft(10);
         updateButton.setRoundTopRight(10);
         updateButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateButtonMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 updateButtonMousePressed(evt);
             }
@@ -471,12 +475,12 @@ public class manageFlightForm extends TransitionsForm {
     }//GEN-LAST:event_addAirlinesButtonMouseReleased
 
     private void deleteButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteButtonMouseClicked
-        int rowIndex = registeredUsers.getSelectedRow();
+        int rowIndex = flightList.getSelectedRow();
         
         if (rowIndex < 0){
             JOptionPane.showMessageDialog(null, "Please select row to delete");
         } else{
-            TableModel model = registeredUsers.getModel();
+            TableModel model = flightList.getModel();
             Object value = model.getValueAt(rowIndex, 0);
             String id = value.toString();
             int a = JOptionPane.showConfirmDialog(null, "Are you sure to delete ID: " + id);
@@ -486,14 +490,53 @@ public class manageFlightForm extends TransitionsForm {
                 dbc.deleteFlight(ids, "flights_table");
                 displayData();
             }
-        }
+        }   
     }//GEN-LAST:event_deleteButtonMouseClicked
+
+    private void updateButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateButtonMouseClicked
+        int rowIndex = flightList.getSelectedRow();
+        editFlights update = new editFlights();
+        if (rowIndex < 0){
+            JOptionPane.showMessageDialog(null, "Please select row to update");
+        } else{
+            
+            update.setVisible(true);
+            
+            try {
+                dbConnector dbc = new dbConnector();
+                TableModel tbl = flightList.getModel();
+                //ResultSet rs = dbc.getData("SELECT * FROM flights_table WHERE flight_Id = '"+ tbl.getValueAt(rowIndex, 0) +"'");
+                
+                ResultSet rs = dbc.getData("SELECT flights_table.flight_Id, flights_table.Flying_To, airlines.Airline, flights_table.Arrival, flights_table.Arrival_Time, flights_table.Flying_From, flights_table.Seats, flights_table.Departure, flights_table.Departure_Time, flights_table.Price "
+                        + "FROM airlines "
+                        + "INNER JOIN flights_table ON airlines.Id = flights_table.airline_Id WHERE flights_table.flight_Id = '"+ tbl.getValueAt(rowIndex, 0) +"'");
+                
+                
+                if (rs.next()){
+                    update.flightId =  rs.getInt("flight_Id");
+                    update.FlyingTo.setText("" + rs.getString("Flying_To"));
+                    update.airlines.setSelectedItem("" + rs.getString("airline"));
+                    update.arrivalDate.setText("" + rs.getString("Arrival"));
+                    update.arrivalTime.setText("" + rs.getString("Arrival_Time"));
+                    update.flyingFrom.setText("" + rs.getString("Flying_From"));
+                    update.seats.setText("" + rs.getString("Seats"));
+                    update.departureDate.setText("" + rs.getString("Departure"));
+                    update.departureTime.setText("" + rs.getString("Departure_Time"));
+                    update.fare.setText("" + rs.getString("Price"));
+                }
+                
+            } catch(SQLException ex){
+                System.out.println(""+ ex);
+            }
+        }
+    }//GEN-LAST:event_updateButtonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private panelRoundComponents.PanelRound addAirlinesButton;
     private panelRoundComponents.PanelRound addFlightButton;
     private panelRoundComponents.PanelRound deleteButton;
+    private table.Table flightList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -508,7 +551,6 @@ public class manageFlightForm extends TransitionsForm {
     private javax.swing.JPanel jPanel1;
     private panelRoundComponents.PanelRound panelRound1;
     private panelRoundComponents.PanelRound refreshButton;
-    private table.Table registeredUsers;
     private panelRoundComponents.RoundPanel roundPanel1;
     private scrollPane.ScrollPaneWin11 scrollPaneWin111;
     private javax.swing.JTextField searchBar;

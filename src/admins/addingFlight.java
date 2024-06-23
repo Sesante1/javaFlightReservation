@@ -13,7 +13,9 @@ import java.util.Date;
 import static javaflightreservation.LogIn.userStatus;
 import static javaflightreservation.LogIn.userType;
 import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import net.proteanit.sql.DbUtils;
 
@@ -62,6 +64,20 @@ public class addingFlight extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+    
+    boolean isValid = true;
+    
+    void setWarning(JTextField field, JLabel warningLabel, String warningText) {
+        field.setBorder(border);
+        warningLabel.setText(warningText);
+        isValid = false;
+    }
+
+    void clearWarning(JTextField field, JLabel warningLabel) {
+        field.setBorder(defaultBorder);
+        warningLabel.setText(" ");
+        isValid = true;
     }
     
     @SuppressWarnings("unchecked")
@@ -553,17 +569,8 @@ public class addingFlight extends javax.swing.JFrame {
         
         dbConnector dbc = new dbConnector();
         int airlineId = 0;
-        boolean departureDates = true;
-        boolean departureTimes = true;
-        boolean FlyingFroms = true;
-        boolean FlyingTos = true;
         
-        boolean arrivalTimes = true;
-        boolean arrivalDates = true;
-        boolean fares = true;
-        boolean seatss = true;
         
-        boolean validTime = true;
         if (departureDate.getText().isEmpty() || departureTime.getText().isEmpty() || arrivalDate.getText().isEmpty() || arrivalTime.getText().isEmpty() 
                 || flyingFrom.getText().isEmpty() || FlyingTo.getText().isEmpty()  
                 || fare.getText().isEmpty() || seats.getText().isEmpty()){
@@ -615,29 +622,28 @@ public class addingFlight extends javax.swing.JFrame {
                 FlyingTo.setBorder(defaultBorder);
                 flyingToWarning.setText(" ");
             }
-        } else if (validTime){
-            System.out.println("true");
+        } else if (!isValidTime(arrivalTime.getText())){
             if (!isValidTime(arrivalTime.getText())){
                 arrivalTime.setBorder(border);
                 arrivalTimeWarning.setText("Please follow the time format '12:00 pm'");
-                validTime = true;
+                
             } else {
                 arrivalTime.setBorder(defaultBorder);
                 arrivalTimeWarning.setText(" ");
-                validTime = false;
             }
             
+        } else if (!isValidTime(departureTime.getText())){
             if (!isValidTime(departureTime.getText())){
                 departureTime.setBorder(border);
                 departureTimeWarning.setText("Please follow the time format '12:00 pm'");
-                validTime = true;
+                
             } else {
                 departureTime.setBorder(defaultBorder);
                 departureTimeWarning.setText(" ");
-                validTime = false;
+               
             }
-            
-        } else if (!isInteger(fare.getText()) || !isInteger(seats.getText())) {
+        }
+        else if (!isInteger(fare.getText())) {
             if (!isInteger(fare.getText())){
                 fare.setBorder(border);
                 fareWarning.setText("Invalid Input");
@@ -645,7 +651,7 @@ public class addingFlight extends javax.swing.JFrame {
                 fare.setBorder(defaultBorder);
                 fareWarning.setText(" ");
             }
-            
+        } else if (!isInteger(seats.getText())){
             if (!isInteger(seats.getText())){
                 seats.setBorder(border);
                 seatsWarning.setText("Invalid Input");
@@ -663,110 +669,9 @@ public class addingFlight extends javax.swing.JFrame {
                     airlineId = resultSet.getInt("Id");
                 } 
                 System.out.println(""+ airlineId);
-                if (dbc.insertData("INSERT INTO flights_table (Departure, Departure_Time, Arrival, Arrival_Time, Flying_From, Flying_To, airline_Id, Price, Seats, Status)"
-                    + "VALUES('" + departureDate.getText() + "','" + departureTime.getText() + "','" + arrivalDate.getText() + "','" + arrivalTime.getText() + "','" + flyingFrom.getText() + "','" + FlyingTo.getText() + "','" + airlineId + "','" + fare.getText() + "','"+seats.getText()+"','Not yet departed')"))
-                {
-                    JOptionPane.showMessageDialog(null, "Added Successfully.");
-                    this.dispose();
+                if (airlineId == 0){
+                    JOptionPane.showMessageDialog(this, "Please Select an airline");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Connection Error!");
-                }
-            }catch (SQLException ex) {
-                System.out.println(ex);
-            }
-        }
-        /*if (departureTime.getText().isEmpty()){
-                departureTime.setBorder(border);
-                departureTimeWarning.setText("You cant leave this empty");
-                departureDates = true;
-            } else {
-                departureTimeWarning.setText(" ");
-                departureTime.setBorder(defaultBorder);
-                departureDates = false;
-            }
-            
-            if (arrivalTime.getText().isEmpty()){
-                arrivalTime.setBorder(border);
-                arrivalTimeWarning.setText("You cant leave this empty");
-                arrivalTimes = false;
-            } else {
-                arrivalTimeWarning.setText(" ");
-                arrivalTime.setBorder(defaultBorder);
-            }
-            
-            if (fare.getText().isEmpty()){
-                fare.setBorder(border);
-                fareWarning.setText("You cant leave this empty");
-            } else {
-                fare.setBorder(defaultBorder);
-                fareWarning.setText(" ");
-            }
-            
-            if (seats.getText().isEmpty()){
-                seats.setBorder(border);
-                seatsWarning.setText("You cant leave this empty");
-            } else {
-                seats.setBorder(defaultBorder);
-                seatsWarning.setText(" ");
-            }
-            
-            if (flyingFrom.getText().isEmpty()){
-                flyingFrom.setBorder(border);
-                flyingFromWarning.setText("You cant leave this empty");
-            } else {
-                flyingFrom.setBorder(defaultBorder);
-                flyingFromWarning.setText(" ");
-            }
-            
-            if (FlyingTo.getText().isEmpty()){
-                FlyingTo.setBorder(border);
-                flyingToWarning.setText("You cant leave this empty");
-            } else {
-                FlyingTo.setBorder(defaultBorder);
-                flyingToWarning.setText(" ");
-            }
-            
-            if (!isValidTime(arrivalTime.getText())){
-                arrivalTime.setBorder(border);
-                arrivalTimeWarning.setText("Please follow the time format '12:00 pm'");
-            } else {
-                arrivalTime.setBorder(defaultBorder);
-                arrivalTimeWarning.setText(" ");
-            }
-            
-            if (!isValidTime(departureTime.getText())){
-                departureTime.setBorder(border);
-                departureTimeWarning.setText("Please follow the time format '12:00 pm'");
-            } else {
-                departureTime.setBorder(defaultBorder);
-                departureTimeWarning.setText(" ");
-            }
-            
-            if (!isInteger(fare.getText())){
-                fare.setBorder(border);
-                fareWarning.setText("Invalid Input");
-            } else {
-                fare.setBorder(defaultBorder);
-                fareWarning.setText(" ");
-            }
-            
-            if (!isInteger(seats.getText())){
-                seats.setBorder(border);
-                seatsWarning.setText("Invalid Input");
-            } else {
-                fare.setBorder(defaultBorder);
-                seatsWarning.setText(" ");
-            }
-            
-            if (isValid){
-                try{
-                    String query = "SELECT * FROM airlines WHERE Airline = '"+ airlines.getSelectedItem() +"'";
-                    ResultSet resultSet = dbc.getData(query);
-
-                    if (resultSet.next()){
-                        airlineId = resultSet.getInt("Id");
-                    } 
-                    System.out.println(""+ airlineId);
                     if (dbc.insertData("INSERT INTO flights_table (Departure, Departure_Time, Arrival, Arrival_Time, Flying_From, Flying_To, airline_Id, Price, Seats, Status)"
                         + "VALUES('" + departureDate.getText() + "','" + departureTime.getText() + "','" + arrivalDate.getText() + "','" + arrivalTime.getText() + "','" + flyingFrom.getText() + "','" + FlyingTo.getText() + "','" + airlineId + "','" + fare.getText() + "','"+seats.getText()+"','Not yet departed')"))
                     {
@@ -775,10 +680,12 @@ public class addingFlight extends javax.swing.JFrame {
                     } else {
                         JOptionPane.showMessageDialog(null, "Connection Error!");
                     }
-                }catch (SQLException ex) {
-                    System.out.println(ex);
                 }
-            }*/
+           
+            }catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }
     }//GEN-LAST:event_addButtonMouseClicked
 
     private void addButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMousePressed

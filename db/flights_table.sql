@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2024 at 10:47 PM
+-- Generation Time: Jun 23, 2024 at 09:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,11 +46,11 @@ CREATE TABLE `flights_table` (
 --
 
 INSERT INTO `flights_table` (`Flight_Id`, `airline_Id`, `Departure`, `Departure_Time`, `Arrival`, `Arrival_Time`, `Flying_From`, `Flying_To`, `Price`, `Seats`, `Status`) VALUES
-(8, 1, '25-05-2024', '1:00', '25-05-2024', '2:00', 'manila', 'bacolod', '1000', 200, 'Arrived'),
-(10, 2, '01-06-2024', '4:00 PM', '25-05-2024', '3:00 PM', 'chicago', 'canada', '400', 200, 'Arrived'),
-(11, 2, '03-06-2024', '3:00', '03-06-2024', '4:00', 'manila', 'bacolod', '3000', 200, 'Not yet departed'),
+(8, 1, '25-05-2024', '1:00 am', '25-05-2024', '2:00 am ', 'manila', 'bacolod', '10000', 10, 'Arrived'),
+(10, 1, '01-06-2024', '4:00 PM', '25-05-2024', '3:00 PM', 'chicago', 'canada', '400', 200, 'Arrived'),
+(11, 1, '03-06-2024', '3:00 am', '03-06-2024', '4:00 am', 'manila', 'bacolod', '3000', 199, 'Not yet departed'),
 (12, 1, '23-06-2024', '12:00 PM', '25-06-2024', '12:00 AM', 'cebu', 'japan', '2000', 100, 'Not yet departed'),
-(13, 1, '22-06-2024', '2:00 am', '22-06-2024', '1:00 pm', 'asdf', 'asdf', '12', 200, 'Not yet departed');
+(14, 1, '16-06-2024', '1:00 pm', '30-06-2024', '2:00 pm', 'Bohol', 'MNL', '2000', 200, 'Not yet departed');
 
 --
 -- Indexes for dumped tables
@@ -71,7 +71,7 @@ ALTER TABLE `flights_table`
 -- AUTO_INCREMENT for table `flights_table`
 --
 ALTER TABLE `flights_table`
-  MODIFY `Flight_Id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `Flight_Id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables
